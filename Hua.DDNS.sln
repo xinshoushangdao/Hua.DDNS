@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hua.DDNS", "Hua.DDNS\Hua.DDNS.csproj", "{EBC77B5D-87D5-4923-84A6-93DB2248DEB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hua.DDNS.Test", "Hua.DDNS.Test\Hua.DDNS.Test.csproj", "{BB544060-5ABF-4A3C-965B-BE7CA7BD61E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBC77B5D-87D5-4923-84A6-93DB2248DEB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC77B5D-87D5-4923-84A6-93DB2248DEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC77B5D-87D5-4923-84A6-93DB2248DEB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC77B5D-87D5-4923-84A6-93DB2248DEB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB544060-5ABF-4A3C-965B-BE7CA7BD61E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB544060-5ABF-4A3C-965B-BE7CA7BD61E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB544060-5ABF-4A3C-965B-BE7CA7BD61E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB544060-5ABF-4A3C-965B-BE7CA7BD61E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8744CA6-C2DB-4287-B8B3-E5917B12391D}
+	EndGlobalSection
+EndGlobal
