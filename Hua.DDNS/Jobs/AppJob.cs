@@ -113,12 +113,14 @@ namespace Hua.DDNS.Jobs
                     })).Body.DomainRecords.Record; 
 
                     foreach (var aliDomainRecord in aliDescribeRecordList
-                                 .Where(m => m.Value != CurrentIpv4Address && _domainOption.subDomainArray.Any(n => m.Value == n)))
+                                 .Where(m => m.Value != CurrentIpv4Address && _domainOption.subDomainArray.Any(n => m.RR == n)))
                     {
 
                         await aliClient.UpdateDomainRecordAsync(new UpdateDomainRecordRequest()
                         {
                             RecordId = aliDomainRecord.RecordId,
+                            RR = aliDomainRecord.RR,
+                            Type = aliDomainRecord.Type,
                             Value = CurrentIpv4Address,
                         });
                     }
