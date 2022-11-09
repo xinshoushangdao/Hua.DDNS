@@ -115,7 +115,6 @@ namespace Hua.DDNS.Jobs
                     foreach (var aliDomainRecord in aliDescribeRecordList
                                  .Where(m => m.Value != CurrentIpv4Address && _domainOption.subDomainArray.Any(n => m.RR == n)))
                     {
-
                         await aliClient.UpdateDomainRecordAsync(new UpdateDomainRecordRequest()
                         {
                             RecordId = aliDomainRecord.RecordId,
@@ -123,6 +122,7 @@ namespace Hua.DDNS.Jobs
                             Type = aliDomainRecord.Type,
                             Value = CurrentIpv4Address,
                         });
+                        _logger.LogInformation($"更新域名解析记录{aliDomainRecord.Value} To {CurrentIpv4Address}");
                     }
                     break;
             }

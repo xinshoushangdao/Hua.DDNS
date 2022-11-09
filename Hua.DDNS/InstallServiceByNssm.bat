@@ -12,9 +12,9 @@ goto end
 :as_admin
 SET basePath=%cd%
 SET serviceName=Hua.DDNS
-SET displayName="Hua.DDNS Demo"
-SET description="Hua.DDNS Demo"
-SET servicePath="%basePath%\%serviceName%.exe"
+SET displayName=%serviceName%
+SET description=%serviceName%
+SET servicePath="%basePath%\Hua.DDNS.exe"
 ECHO %servicePath%
 net stop %serviceName%
 sc delete %serviceName%
