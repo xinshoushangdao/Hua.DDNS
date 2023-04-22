@@ -122,7 +122,7 @@ namespace Hua.DDNS.Jobs
                             Type = aliDomainRecord.Type,
                             Value = CurrentIpv4Address,
                         });
-                        _logger.LogInformation($"更新域名解析记录{aliDomainRecord.Value} To {CurrentIpv4Address}");
+                        _logger.LogInformation($"Update SubDomain[{aliDomainRecord.RR}.{aliDomainRecord.DomainName}] Value {aliDomainRecord.Value} To {CurrentIpv4Address}");
                     }
                     break;
             }

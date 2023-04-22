@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace Hua.DDNS.Common.Config.Options
 {
-
-
+    /// <summary>
+    /// domain configuration class
+    /// </summary>
     public class DomainOption
     {
         /// <summary>
-        /// 平台
+        /// platform from [Ali,Tencent]
         /// </summary>
         public string Platform { get; set; }
 
         /// <summary>
-        /// Id
+        /// Id, the id and key from AliCould or DnsPod
         /// </summary>
         public string Id { get; set; }
 
@@ -26,25 +27,15 @@ namespace Hua.DDNS.Common.Config.Options
         public string Key { get; set; }
 
         /// <summary>
-        /// 域名
+        /// domain
         /// </summary>
         public string domain { get; set; }
 
         /// <summary>
-        /// 子域列表
+        /// sub domain, eg. www,git
         /// </summary>
         public string[] subDomainArray { get; set; }
 
-
-        /// <summary>
-        /// 解析记录类型
-        /// </summary>
-        public string type { get; set; }
-
-        /// <summary>
-        /// 间隔时间 秒
-        /// </summary>
-        public string time { get; set; }
     }
 
 }

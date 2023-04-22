@@ -1,9 +1,11 @@
+using System.Configuration;
 using Hua.DDNS.Common;
 using Hua.DDNS.Common.Config;
 using Hua.DDNS.Common.Http;
 using Hua.DDNS.Jobs;
 using Quartz;
 using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace Hua.DDNS.Start
 {
@@ -11,6 +13,14 @@ namespace Hua.DDNS.Start
     {
         public static async Task Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File(
+                    Path.Combine("Log\\log-.log"),
+                    rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             await CreateHostBuilder(args).Build().RunAsync();
         }
 
@@ -18,15 +28,16 @@ namespace Hua.DDNS.Start
             Host.CreateDefaultBuilder(args)
                 .UseWindowsService()
                 .UseSerilog()
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    // clear all config provider
+                    config.Sources.Clear();
+                    config
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    Log.Logger = new LoggerConfiguration()
-                        .Enrich.FromLogContext()
-                        .WriteTo.Console()
-                        .WriteTo.File(
-                            Path.Combine("Log\\log-.log"),
-                            rollingInterval: RollingInterval.Day)
-                        .CreateLogger();
                     ConfigDi(hostContext, services);
                     ConfigQuartz(hostContext, services);
                 });

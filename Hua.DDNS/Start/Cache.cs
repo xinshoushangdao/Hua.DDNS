@@ -3,9 +3,9 @@
     public class Cache
     {
         /// <summary>
-        /// Tocken
+        /// Token
         /// </summary>
-        public static string Tocken { get; set; } = null;
+        public static string? Token { get; set; } = null;
 
     }
 }
