@@ -12,9 +12,9 @@ namespace Hua.DDNS.Common.Config.Options
     public class DomainOption
     {
         /// <summary>
-        /// platform from [Ali,Tencent]
+        /// platform from  1 Ali 2 Tencent
         /// </summary>
-        public string Platform { get; set; }
+        public PlatformEnum Platform { get; set; }
 
         /// <summary>
         /// Id, the id and key from AliCould or DnsPod

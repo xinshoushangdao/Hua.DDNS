@@ -66,7 +66,7 @@ namespace Hua.DDNS.Jobs
             //更新Ip记录
             switch (_domainOption.Platform)
             {
-                case "Tencent":
+                case PlatformEnum.Tencent:
                     var _dnspodClient = new DnspodClient(
                         // 实例化一个认证对象，入参需要传入腾讯云账户secretId，secretKey,此处还需注意密钥对的保密
                         // 密钥可前往https://console.cloud.tencent.com/cam/capi网站进行获取
@@ -97,7 +97,7 @@ namespace Hua.DDNS.Jobs
                     });
 
                     break;
-                case "Ali":
+                case PlatformEnum.Ali:
                     var aliClient =  new AlibabaCloud.SDK.Alidns20150109.Client(new Config()
                     {
                         // 您的 AccessKey ID
