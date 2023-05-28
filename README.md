@@ -17,7 +17,7 @@ Example of config in `appsetting.json`
 ```json
 {
   "ConnectionStrings": {
-    "pgConnection": "Host=127.0.0.1;Port=5432;Database=Worker;Username=Worker;Password=123456;"//LogDbConnection
+    "pgConnection": "Host=127.0.0.1;Port=5432;Database=Worker;Username=Worker;Password=123456;"
   },
   "Logging": {
     "LogLevel": {
@@ -27,17 +27,31 @@ Example of config in `appsetting.json`
   },
   "App": {
     "AppJob": {
-      "Corn": "0/15 * * * * ? " //a corn expression which defined strike time and frequency.this is a util website for generate an corn expression https://cron.qqe2.com/
-      
-    },
-
-    "Domain": {
-      "Platform": "Ali", //platform from 'Tencent' or 'Ali'
-      "Id": "Id",//get the id and key from https://dc.console.aliyun.com/ Or https://console.cloud.tencent.com/cam/capi
-      "Key": "Key",
-      "domain": "demo.cn",
-      "subDomainArray": [ "www", "@","git"],
-      "type": "A",//this is not using
-      "time": "30"//this is not using
+      "Corn": "* * * * * ?" //https://cron.qqe2.com/
     }
+  },
+  "DDNS": {
+    "Platform": 3, //1 Ali 2 Tencent 3 Namesilo
+    // 主域名
+    "Domain": "we965.com",
+    // 子域名前缀
+    "SubDomainArray": [ "git", "webutil", "dev" ],
+    // 记录类型
+    "type": "A",
+    //间隔时间 秒
+    "time": "30"
+  },
+  "Namesilo": {
+    "ApiKey": "1111"
+  },
+  "Dnspod": {
+    "Id": "1111",
+    "Key": "1111",
+    "Endpoint": "1111"
+  },
+  "Ali": {
+    "Id": "1111",
+    "Key": "1111",
+    "Endpoint": "1111"
+  }
 }
