@@ -1,6 +1,6 @@
 ## Purpose
 
-A system service for dynamic update DNS record by `net6` with `Quartz.Net`. only Support [DnsPod](https://docs.dnspod.cn/api/add-domain/)、[AlibabaCloud]([阿里云 OpenAPI 开发者门户 (aliyun.com)](https://next.api.aliyun.com/document/Alidns/2015-01-09)).
+A system service for dynamic update DNS record by `net6` with `Quartz.Net`. only Support [DnsPod](https://docs.dnspod.cn/api/add-domain/)、[AlibabaCloud]([阿里云 OpenAPI 开发者门户 (aliyun.com)](https://next.api.aliyun.com/document/Alidns/2015-01-09))、[Namesilo](https://www.namesilo.com/api-reference)
 
 ## Deploy
 
