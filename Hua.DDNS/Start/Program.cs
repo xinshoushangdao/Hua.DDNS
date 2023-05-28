@@ -1,8 +1,14 @@
 using System.Configuration;
+using System.Reflection;
 using Hua.DDNS.Common;
 using Hua.DDNS.Common.Config;
 using Hua.DDNS.Common.Http;
+using Hua.DDNS.DDNSProviders;
+using Hua.DDNS.DDNSProviders.Ali;
+using Hua.DDNS.DDNSProviders.Dnspod;
+using Hua.DDNS.DDNSProviders.Namesilo;
 using Hua.DDNS.Jobs;
+using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;
@@ -34,10 +40,16 @@ namespace Hua.DDNS.Start
                     config.Sources.Clear();
                     config
                         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true,
+                            reloadOnChange: true);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddAutoMapper(Assembly.GetExecutingAssembly());
+                    services.Configure<DdnsOption>(hostContext.Configuration.GetSection("DDNS"));
+                    services.Configure<NamesiloOption>(hostContext.Configuration.GetSection("Namesilo"));
+                    services.Configure<DnspodOption>(hostContext.Configuration.GetSection("Dnspod"));
+                    services.Configure<AliDdnsOption>(hostContext.Configuration.GetSection("Ali"));
                     ConfigDi(hostContext, services);
                     ConfigQuartz(hostContext, services);
                 });
@@ -45,10 +57,12 @@ namespace Hua.DDNS.Start
         public static IServiceProvider ConfigDi(HostBuilderContext hostContext, IServiceCollection services)
         {
             services.AddSingleton<SettingProvider>();
-            //services.AddSingleton<SyncECMFileProvider>();
             services.AddSingleton<Url>();
             services.AddSingleton<SqlHelper>();
             services.AddTransient<IHttpHelper, HttpHelper>();
+            services.AddTransient<NamesiloDdnsProvider>();
+            services.AddTransient<AliDdnsProvider>();
+            services.AddTransient<DnspodDdnsProvider>();
             return services.BuildServiceProvider();
         }
 
@@ -75,18 +89,18 @@ namespace Hua.DDNS.Start
                 q.UseDefaultThreadPool(tp => { tp.MaxConcurrency = 10; });
 
                 //configure jobs with code
-                var appJobKey = new JobKey("AppJob", "AppJobGroup");
-                q.AddJob<AppJob>(j => j
+                var appJobKey = new JobKey("NewJob", "NewJobGroup");
+                q.AddJob<NewJob>(j => j
                     .StoreDurably()
                     .WithIdentity(appJobKey)
-                    .WithDescription("AppJob")
+                    .WithDescription("NewJob")
                 );
 
                 q.AddTrigger(t => t
-                    .WithIdentity("AppJob Trigger")
+                    .WithIdentity("NewJob Trigger")
                     .ForJob(appJobKey)
                     .WithCronSchedule(hostContext.Configuration.GetSection("App:AppJob:Corn").Value)
-                    .WithDescription("AppJob trigger")
+                    .WithDescription("NewJob trigger")
                     .StartNow()
                 );
             });

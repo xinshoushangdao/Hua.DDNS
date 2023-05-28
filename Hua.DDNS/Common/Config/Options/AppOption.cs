@@ -1,4 +1,6 @@
-﻿namespace Hua.DDNS.Common.Config.Options
+﻿using Hua.DDNS.DDNSProviders;
+
+namespace Hua.DDNS.Common.Config.Options
 {
 
     /// <summary>
@@ -10,6 +12,7 @@
         /// <summary>
         /// domain configuration 
         /// </summary>
-        public DomainOption Domain { get; set; }
+        public DdnsOption DDNS { get; set; }
+
     }
 }

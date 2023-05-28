@@ -118,7 +118,7 @@ namespace Hua.DDNS.Common.Http
 
 
         /// <summary>
-        /// 获得当前机器的公网 IP
+        /// 获得当前机器的公网 Ip
         /// </summary>
         public async Task<string> GetCurrentPublicIpv4()
         {

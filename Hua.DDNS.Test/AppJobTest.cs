@@ -22,7 +22,7 @@ namespace Hua.DDNS.Test
                     .Build();
 
                 var sc = DIConfig.ConfigureServices(config);
-                var job = sc.GetService<AppJob>();
+                var job = sc.GetService<NewJob>();
 
                 job?.Execute(null);
             }

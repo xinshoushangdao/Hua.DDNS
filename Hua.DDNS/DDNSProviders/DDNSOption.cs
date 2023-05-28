@@ -3,38 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hua.DDNS.Common.Config.Options;
+using Hua.DDNS.DDNSProviders.Namesilo;
 
-namespace Hua.DDNS.Common.Config.Options
+namespace Hua.DDNS.DDNSProviders
 {
     /// <summary>
     /// domain configuration class
     /// </summary>
-    public class DomainOption
+    public class DdnsOption
     {
         /// <summary>
-        /// platform from  1 Ali 2 Tencent
+        /// platform from  1 Ali 2 Tencent 3
         /// </summary>
         public PlatformEnum Platform { get; set; }
 
         /// <summary>
-        /// Id, the id and key from AliCould or DnsPod
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Key
-        /// </summary>
-        public string Key { get; set; }
-
-        /// <summary>
         /// domain
         /// </summary>
-        public string domain { get; set; }
+        public string Domain { get; set; }
 
         /// <summary>
         /// sub domain, eg. www,git
         /// </summary>
-        public string[] subDomainArray { get; set; }
+        public string[] SubDomainArray { get; set; }
 
     }
 

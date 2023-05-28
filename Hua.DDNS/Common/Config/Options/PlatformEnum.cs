@@ -19,6 +19,11 @@ namespace Hua.DDNS.Common.Config.Options
         /// <summary>
         /// Tencent
         /// </summary>
-        Tencent
+        Tencent,
+
+        /// <summary>
+        /// Namesilo
+        /// </summary>
+        Namesilo
     }
 }
