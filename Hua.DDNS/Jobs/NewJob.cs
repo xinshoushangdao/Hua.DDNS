@@ -35,10 +35,11 @@ namespace Hua.DDNS.Jobs
 
 
 
-        public NewJob(ILogger<NewJob> logger,SettingProvider settingProvider, IHttpHelper httpHelper,IOptions<DdnsOption> ddnsOption)
+        public NewJob(ILogger<NewJob> logger,IHttpHelper httpHelper,IOptions<DdnsOption> ddnsOption, IServiceProvider serviceProvider)
         {
             _logger = logger;
             _httpHelper = httpHelper;
+            _serviceProvider = serviceProvider;
             _ddnsOption = ddnsOption.Value;
         }
         public async Task Execute(IJobExecutionContext context)
