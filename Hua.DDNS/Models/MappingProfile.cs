@@ -34,6 +34,14 @@ namespace Hua.DDNS.Models
                 .ForMember(dest => dest.Ip, opt => opt.MapFrom(src => src.Value))
                 .ForMember(dest => dest.SubDomain, opt => opt.MapFrom(src => src.Name))
                 ;
+            CreateMap<DnsRecord, AddDomainRecordRequest>()
+                //.ForMember(dest => dest., opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.RecordType))
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Ip))
+                .ForMember(dest => dest.RR, opt => opt.MapFrom(src => src.SubDomain))
+                .ForMember(dest => dest.DomainName, opt => opt.MapFrom(src => src.Domain))
+                ;
+
         }
     }
 }

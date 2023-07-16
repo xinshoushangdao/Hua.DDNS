@@ -1,37 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PublishSingleFile>true</PublishSingleFile>
 		<UserSecretsId>dotnet-Hua.DDNS-C4DADDFF-6D5B-4BD5-AB11-02F07B517CAC</UserSecretsId>
 		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="3.0.0" />
+		<PackageReference Include="AlibabaCloud.SDK.Alidns20150109" Version="3.0.7" />
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-		<PackageReference Include="Hua.DotNet.Code" Version="0.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
-		<PackageReference Include="Dapper" Version="2.0.123" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
+		<PackageReference Include="Hua.DotNet.Code" Version="0.0.11" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+		<PackageReference Include="Dapper" Version="2.0.138" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
 		<PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
-		<PackageReference Include="Npgsql" Version="6.0.3" />
-		<PackageReference Include="QRCoder" Version="1.4.1" />
-		<PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.4.0" />
-		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.4.0" />
-		<PackageReference Include="Serilog" Version="2.10.0" />
-		<PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
-		<PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+		<PackageReference Include="Npgsql" Version="7.0.4" />
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+		<PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.6.2" />
+		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.6.2" />
+		<PackageReference Include="Serilog" Version="2.12.0" />
+		<PackageReference Include="Serilog.Extensions.Hosting" Version="7.0.0" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-		<PackageReference Include="TencentCloudSDK.Dnspod" Version="3.0.623" />
+		<PackageReference Include="TencentCloudSDK.Dnspod" Version="3.0.781" />
 	</ItemGroup>
 
 	<ItemGroup>

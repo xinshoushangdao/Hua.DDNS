@@ -13,6 +13,17 @@ public class DnsRecord
     public string Host { get; set; }
     public string SubDomain { get; set; }
     public string Domain { get; set; }
-    public string TTL { get; set; }
-    public string RecordType { get; set; }
+    public string TTL { get; set; } = "10";
+    public string RecordType { get; set; } = "A";
+
+    public DnsRecord(string ip,string domain)
+    {
+        Ip = ip;
+        Host = domain;
+    }
+
+    public DnsRecord()
+    {
+
+    }
 }

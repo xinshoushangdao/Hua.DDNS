@@ -21,6 +21,7 @@ using TencentCloud.Dnspod.V20210323.Models;
 
 using Tea;
 using Tea.Utils;
+using System.Net.Sockets;
 
 namespace Hua.DDNS.Jobs
 {
@@ -45,31 +46,47 @@ namespace Hua.DDNS.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
 
+            //2.获取DNS记录
+            IDdnsProvider? ddnsProvider = _ddnsOption.Platform switch
+            {
+                PlatformEnum.Namesilo => _serviceProvider.GetRequiredService<NamesiloDdnsProvider>(),
+                PlatformEnum.Tencent => _serviceProvider.GetRequiredService<DnspodDdnsProvider>(),
+                PlatformEnum.Ali => _serviceProvider.GetRequiredService<AliDdnsProvider>(),
+                _ => null
+            };
+            newIp = await _httpHelper.GetCurrentPublicIpv4();
 
             try
-            {   
+            {
                 //1. 获取当前机器ip
                 var domain = $"{_ddnsOption.SubDomainArray.First()}.{_ddnsOption.Domain}";
-                var oldIp = (await Dns.GetHostEntryAsync(domain)).AddressList.First();
-                newIp = await _httpHelper.GetCurrentPublicIpv4();
+                IPAddress oldIp = null;
+                oldIp = (await Dns.GetHostEntryAsync(domain)).AddressList.First();
+
                 //1.1 如果当前dns记录与实际dns记录一致，跳出本次执行
                 if (newIp == oldIp.ToString()) return;
 
-                //2.获取DNS记录
-                IDdnsProvider? ddnsProvider = _ddnsOption.Platform switch
-                {
-                    PlatformEnum.Namesilo => _serviceProvider.GetRequiredService<NamesiloDdnsProvider>(),
-                    PlatformEnum.Tencent => _serviceProvider.GetRequiredService<DnspodDdnsProvider>(),
-                    PlatformEnum.Ali => _serviceProvider.GetRequiredService<AliDdnsProvider>(),
-                    _ => null
-                };
 
                 var dnsRecordList = await ddnsProvider!.GetRecordListAsync();
-                var record = dnsRecordList.FirstOrDefault(m => m.Ip == newIp && _ddnsOption.SubDomainArray.Any(n => m.SubDomain == n));
-                if (record != null && record.Ip == newIp) return;//如果记录已经变更，不调用更新接口
+                var record = dnsRecordList.FirstOrDefault(m =>
+                    m.Ip == newIp && _ddnsOption.SubDomainArray.Any(n => m.SubDomain == n));
+                if (record != null && record.Ip == newIp) return; //如果记录已经变更，不调用更新接口
 
                 //3.比较并更新
-                await ddnsProvider.ModifyRecordListAsync(newIp, dnsRecordList.Where(m => m.Ip != newIp && _ddnsOption.SubDomainArray.Any(n => m.SubDomain == n)));
+                await ddnsProvider.ModifyRecordListAsync(newIp,
+                    dnsRecordList.Where(m => m.Ip != newIp && _ddnsOption.SubDomainArray.Any(n => m.SubDomain == n)));
+            }
+            catch (SocketException e)
+            {
+                if (e.Message.Contains("不知道这样的主机"))
+                {
+                    await ddnsProvider.CreateDnsRecordAsync(new DnsRecord()
+                    {
+                        Ip = newIp,
+                        Host = _ddnsOption.SubDomainArray.First(),
+                        Domain = _ddnsOption.Domain,
+                    });
+                }
             }
             catch (Exception e)
             {

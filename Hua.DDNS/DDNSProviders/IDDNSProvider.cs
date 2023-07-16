@@ -22,6 +22,13 @@ namespace Hua.DDNS.DDNSProviders
         Task<IEnumerable<DnsRecord>?> GetRecordListAsync();
 
         /// <summary>
+        /// 创建解析记录
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        Task<DnsRecord> CreateDnsRecordAsync(DnsRecord record);
+
+        /// <summary>
         /// 修改域名解析记录
         /// </summary>
         /// <param name="newIp"></param>

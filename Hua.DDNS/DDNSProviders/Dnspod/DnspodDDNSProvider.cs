@@ -12,12 +12,14 @@ using TencentCloud.Common;
 using TencentCloud.Dnspod.V20210323;
 using System.Net;
 using TencentCloud.Dnspod.V20210323.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Hua.DDNS.DDNSProviders.Dnspod
 {
 
     /// <summary>
     /// DdnsProvider for Dnspod
+    /// <remarks></remarks>
     /// </summary>
     public class DnspodDdnsProvider : IDdnsProvider
     {
@@ -51,6 +53,19 @@ namespace Hua.DDNS.DDNSProviders.Dnspod
             var recordList = (await _client.DescribeRecordList(new DescribeRecordListRequest() { Domain = _ddnsOption.Domain })).RecordList;
 
             return _mapper.Map<IEnumerable<DnsRecord>>(recordList);
+        }
+
+        public async Task<DnsRecord> CreateDnsRecordAsync(DnsRecord record)
+        {
+            var response =  await _client.CreateRecord(new CreateRecordRequest()
+            {
+                Domain = _ddnsOption.Domain,
+                Value = record.Ip,
+                RecordLine = "默认",
+                RecordType = record.RecordType,
+                TTL = Convert.ToUInt32(record.TTL),
+            });
+            return record;
         }
 
         public async Task<IEnumerable<DnsRecord>> ModifyRecordListAsync(string newIp, IEnumerable<DnsRecord> records)

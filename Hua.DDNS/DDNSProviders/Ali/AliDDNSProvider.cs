@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AlibabaCloud.OpenApiClient.Models;
 using AlibabaCloud.SDK.Alidns20150109;
 using AlibabaCloud.SDK.Alidns20150109.Models;
+using AlibabaCloud.TeaUtil.Models;
 using AutoMapper;
 using Hua.DDNS.Common.Config.Options;
 using Hua.DDNS.Models;
@@ -53,6 +54,12 @@ namespace Hua.DDNS.DDNSProviders.Ali
             })).Body.DomainRecords.Record;
 
             return _mapper.Map<IEnumerable<DnsRecord>>(record);
+        }
+
+        public async Task<DnsRecord> CreateDnsRecordAsync(DnsRecord record)
+        {
+            var rep =  await _client.AddDomainRecordAsync(_mapper.Map<AddDomainRecordRequest>(record));
+            return record;
         }
 
         /// <summary>

@@ -1,7 +1,9 @@
 ﻿using System.Xml;
 using AutoMapper;
 using Hua.DDNS.Models;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Hua.DDNS.DDNSProviders.Namesilo
 {
@@ -58,6 +60,35 @@ namespace Hua.DDNS.DDNSProviders.Namesilo
                     TTL = record.ParentNode.SelectSingleNode("ttl/text()").Value,
                     SubDomain = subDomain,
                 }).ToList();
+        }
+
+        public async Task<DnsRecord> CreateDnsRecordAsync(DnsRecord dnsRecord)
+        {
+            var host = dnsRecord.Host[..(dnsRecord.Host.Length - dnsRecord.Domain.Length - 1)];
+            //https://www.namesilo.com/api/dnsAddRecord?version=1&type=xml&key=12345&domain=namesilo.com&rrtype=A&rrhost=test&rrvalue=55.55.55.55&rrttl=7207
+            var url = $"https://www.namesilo.com/api/dnsUpdateRecord?version=1&type=xml&key={_namesiloOption.ApiKey}&domain={dnsRecord.Domain}&rrtype={dnsRecord.RecordType}&rrid={dnsRecord.Id}&rrhost={host}&rrvalue={dnsRecord.Ip}&rrttl={dnsRecord.TTL}";
+
+            using var client = new HttpClient();
+            {
+
+                var response = await client.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+
+                var reply = new XmlDocument();
+                reply.LoadXml(content);
+                var status = reply.SelectSingleNode("/namesilo/reply/code/text()");
+                if (status == null)
+                {
+                    await Console.Error.WriteLineAsync($"Failed to create record: '{JsonConvert.SerializeObject(dnsRecord)}'");
+                }
+
+                if (status.Value == "300")
+                {
+                    return null;
+                    //continue;
+                }
+            }
+            return dnsRecord;
         }
 
         public async Task<IEnumerable<DnsRecord>> ModifyRecordListAsync(string newIp, IEnumerable<DnsRecord> records)
