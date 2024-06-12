@@ -8,7 +8,6 @@ using Hua.DDNS.DDNSProviders.Ali;
 using Hua.DDNS.DDNSProviders.Dnspod;
 using Hua.DDNS.DDNSProviders.Namesilo;
 using Hua.DDNS.Jobs;
-using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Serilog;
 using Serilog.Extensions.Logging;

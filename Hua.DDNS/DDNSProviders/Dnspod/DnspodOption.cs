@@ -17,7 +17,7 @@
         public string Key { get; set; }
 
         /// <summary>
-        /// Endpoint
+        /// Endpoint dnspod.tencentcloudapi.com
         /// </summary>
         public string Endpoint { get; set; }
     }
