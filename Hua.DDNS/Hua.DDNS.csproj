@@ -4,10 +4,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<PublishSingleFile>true</PublishSingleFile>
 		<UserSecretsId>dotnet-Hua.DDNS-C4DADDFF-6D5B-4BD5-AB11-02F07B517CAC</UserSecretsId>
-		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-		<SelfContained>true</SelfContained>
+		 <SelfContained>true</SelfContained> 
 	</PropertyGroup>
 
 	<ItemGroup>
